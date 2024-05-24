@@ -18,12 +18,13 @@ export const userSchema = new Schema<IUser>({
     username: {
         type: String,
         required: true,
+        unique: true
     },
     password: {
         type: String,
         required: true,
     },
-    email: String,
+    email:{ type: String, unique: true },
     phone: Number
 });
 
