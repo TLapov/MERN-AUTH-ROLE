@@ -1,15 +1,13 @@
 import { Router } from "express";
-import { register, login } from "../controllers/auth.controllers";
+import { register, login, updateUser, deleteUser } from "../controllers/auth.controllers";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router();
 const PATH = '/auth';
 
 router.post(`${PATH}/register`, register);
 router.post(`${PATH}/login`, login);
+router.put(`${PATH}/update`, updateUser);
+router.delete(`${PATH}/delete`, deleteUser);
 
 export default router;
-
-
-// router.post("/api/user/createUser", createUser);
-// router.post("/api/user/login", loginUser);
-// router.get("/api/user/getUser", authMiddleware, getUser);

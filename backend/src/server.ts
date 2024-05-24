@@ -2,12 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from "./routes/auth.routes";
+import { cookiesMiddleware } from './middlewares/cookies.middleware';
 
 // CONFIG
 dotenv.config();
 const server = express();
 
 server.use(express.json());
+server.use(cookiesMiddleware);
 
 // ROUTES 
 server.use(process.env.BASE_PATH, authRoutes);
