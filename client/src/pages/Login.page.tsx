@@ -26,9 +26,12 @@ function Login() {
         if(res.success) {
           dispach(setUser(res.token));
           navigate('/');
-        }  
+        }
     } catch (error) {
         console.log(error);
+    } finally {
+      setUsername('');
+      setPassword('');  
     }
   }
   
@@ -39,7 +42,9 @@ function Login() {
             <Form.Control
                 type="text" 
                 placeholder="Username"
-                onChange={(e) => setUsername(e.target.value)} />
+                onChange={(e) => setUsername(e.target.value)} 
+                value={username} 
+            />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="password">
@@ -47,7 +52,8 @@ function Login() {
             <Form.Control 
                 type="password" 
                 placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)} 
+                onChange={(e) => setPassword(e.target.value)}
+                value={password} 
             />
           </Form.Group>
           <Button variant="primary" type="submit">Submit</Button>

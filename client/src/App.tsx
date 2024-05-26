@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PrivateRoute from './components/PrivateRoute.component';
 import Login from './pages/Login.page';
+import About from './pages/About.page';
+import AdminRoute from './components/AdminRoute.component';
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRoute />} >
               <Route index element={<HomePage />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/users' element={<AdminRoute />} ></Route>
           </Route>  
           <Route path="/login" element={<Login />} />
         </Routes>
@@ -18,6 +22,3 @@ function App() {
 }
 
 export default App;
-
-
-// https://github.com/zahid-afridi/Role_Base_Auth/blob/main/client/src/redux/AuthSlice.js
