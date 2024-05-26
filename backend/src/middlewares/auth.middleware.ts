@@ -1,8 +1,12 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { NextFunction, Request, RequestHandler, Response } from "express";
-import { UserModel } from "../models/user.model";
+import { IUser, UserModel } from "../models/user.model";
 
-export const authMiddleware: RequestHandler = async(req: Request, res: Response, next: NextFunction) => {
+export interface IRequestWithUser extends Request {
+    user: IUser 
+}
+
+export const authMiddleware: RequestHandler = async(req: IRequestWithUser, res: Response, next: NextFunction) => {
     try {
         const token = req.cookies.token;
     
@@ -18,16 +22,16 @@ export const authMiddleware: RequestHandler = async(req: Request, res: Response,
             res.status(401);
             throw new Error("You are not authenticated");
         }
-        req.body.user = user;
+        req.user = user;
         next();    
     } catch (error) {
         next(error);
     }
 };
 
-export const authRoleMiddleware: RequestHandler = async(req: Request, res: Response, next: NextFunction) => {
+export const authRoleMiddleware: RequestHandler = async(req: IRequestWithUser, res: Response, next: NextFunction) => {
     try {
-        const user = req.body.user;
+        const user = req.user;
     
         if(user.userType !== 'admin') {
             res.status(401);

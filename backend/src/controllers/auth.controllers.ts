@@ -2,10 +2,11 @@ import { RequestHandler, Request, Response, NextFunction } from "express";
 import { UserModel } from "../models/user.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { IRequestWithUser } from "../middlewares/auth.middleware";
 
 
-export const getUser: RequestHandler = async(req: Request, res: Response, next: NextFunction) => {
-    const user = req.body.user;
+export const getUser: RequestHandler = async(req: IRequestWithUser, res: Response, next: NextFunction) => {
+    const user = req.user;
     res.status(200).send({ success: true, message: 'Get user successfully', data: user});    
 }
 
@@ -65,7 +66,7 @@ export const login: RequestHandler = async(req: Request, res: Response, next: Ne
 
 export const updateUser: RequestHandler = async(req: Request, res: Response, next: NextFunction) => {
     try {
-        const updatedUser = req.body.updatedUser;
+        const updatedUser = req.body;
         const user = await UserModel.findById(updatedUser._id);
 
         if(!user) {
