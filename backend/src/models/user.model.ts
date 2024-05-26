@@ -6,6 +6,7 @@ interface IUser {
     password: string;
     email?: string;
     phone?: number;
+    __v: number
 };
 
 export const userSchema = new Schema<IUser>({
@@ -25,7 +26,8 @@ export const userSchema = new Schema<IUser>({
         required: true,
     },
     email:{ type: String, unique: true },
-    phone: Number
+    phone: Number,
+    __v: {type: Number, select: false}
 });
 
 export const UserModel = model<IUser>('User', userSchema);

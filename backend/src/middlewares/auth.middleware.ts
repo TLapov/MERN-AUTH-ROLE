@@ -15,7 +15,7 @@ export const authMiddleware: RequestHandler = async(req: Request, res: Response,
             if(!user) {
                 return res.status(401).send({success: false, message: 'You are not authenticated'});
             }
-            console.log("Hello world")
+            req.body.user = user;
             next();
        } catch (error) {
             return res.send({
@@ -26,13 +26,9 @@ export const authMiddleware: RequestHandler = async(req: Request, res: Response,
 };
 
 export const authRoleMiddleware: RequestHandler = async(req: Request, res: Response, next: NextFunction) => {
-    try {
-         
-         next();
-    } catch (error) {
-         return res.send({
-             success: false,
-             message: error.message
-         });
-    } 
+    const user = req.body.user;
+    if(user.userType !== 'admin') {
+        return res.status(401).send({success: false, message: 'You are not authenticated'});
+    }
+    next();
 };
