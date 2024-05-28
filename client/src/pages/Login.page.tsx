@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { fetchAPi } from "../app/api.service";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ function Login() {
   const user = useAppSelector(state => state.auth.user);
   const dispach = useAppDispatch();
   const navigate = useNavigate();
-  console.log(user)
 
   useEffect( ()=> {
     if(user) {
@@ -24,7 +23,7 @@ function Login() {
     try {
         const res = await fetchAPi('/auth/login', 'POST', {username: username, password: password});
         if(res.success) {
-          dispach(setUser(res.token));
+          dispach(setUser(res.data));
           navigate('/');
         }
     } catch (error) {
@@ -36,7 +35,8 @@ function Login() {
   }
   
   return (
-    <Form onSubmit={handleSubmit} >
+    <Container >
+      <Form className="w-50 m-auto" onSubmit={handleSubmit} >
           <Form.Group className="mb-3" controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -56,8 +56,9 @@ function Login() {
                 value={password} 
             />
           </Form.Group>
-          <Button variant="primary" type="submit">Submit</Button>
-    </Form>
+          <Button className="w-100" variant="primary" type="submit">Submit</Button>
+      </Form>
+    </Container>
   )
 }
 
