@@ -5,7 +5,7 @@ import Navigation from './Navigation.component';
 const PrivateRoute = () => {
   const { user } = useAppSelector((state) => state.auth);
   return user ?
-      <main className='d-flex'>
+      <main className='main-container d-flex'>
         <Navigation />
         <Outlet />
       </main> 
