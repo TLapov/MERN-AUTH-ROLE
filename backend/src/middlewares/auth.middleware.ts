@@ -12,7 +12,7 @@ export const authMiddleware: RequestHandler = async(req: IRequestWithUser, res: 
     
         if(!token) {
             res.status(401);
-            throw new Error("Mijauu, vau");
+            throw new Error("You are not authenticated");
         }
         
         const decryptedData = jwt.verify(token, process.env.JWT) as JwtPayload;

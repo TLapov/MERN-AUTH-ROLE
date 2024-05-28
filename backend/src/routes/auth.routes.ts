@@ -10,7 +10,7 @@ router.get(`${PATH}/getUsers`, authMiddleware, authRoleMiddleware, getUsers);
 router.post(`${PATH}/register`, authMiddleware, authRoleMiddleware, register);
 router.post(`${PATH}/login`, login);
 router.put(`${PATH}/update`, authMiddleware, authRoleMiddleware, updateUser);
-router.delete(`${PATH}/delete`, authMiddleware, authRoleMiddleware, deleteUser);
+router.delete(`${PATH}/delete/:id`, authMiddleware, authRoleMiddleware, deleteUser);
 router.post(`${PATH}/logout`, authMiddleware, logoutUser);
 
 export default router;
